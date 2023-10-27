@@ -137,6 +137,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, TrashPage.class);
             startActivity(intent);
         }
+        else if (id == R.id.nav_export_import) {
+            // Handle other options if needed
+
+            Intent intent = new Intent(MainActivity.this, Import_and_export.class);
+            startActivity(intent);
+        }
 
         // Close the drawer after handling the click event
         drawerLayout.closeDrawer(GravityCompat.START);
