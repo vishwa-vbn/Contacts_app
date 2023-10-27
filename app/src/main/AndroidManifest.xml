@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Contacts"
         tools:targetApi="31">
         <activity
+            android:name=".demo"
+            android:exported="false" />
+        <activity
             android:name=".RestorePage"
             android:exported="false" />
         <activity
