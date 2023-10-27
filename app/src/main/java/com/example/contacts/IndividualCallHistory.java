@@ -104,6 +104,12 @@ package com.example.contacts;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.Bundle;
@@ -117,6 +123,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Random;
 
 public class IndividualCallHistory extends AppCompatActivity {
 
@@ -129,6 +136,8 @@ public class IndividualCallHistory extends AppCompatActivity {
     private ImageView callIcon;
     private ImageButton deleteButton;
     int currentIsDeleted;
+
+    private ImageView profileImage;
     private ContactsDatabaseManager contactsDatabaseManager;
     private ContactsDatabaseManager databaseManager;
 
@@ -145,6 +154,8 @@ public class IndividualCallHistory extends AppCompatActivity {
         TextView phoneTextView = findViewById(R.id.contactNumberTextView);
         TextView contactIdTextView = findViewById(R.id.contact_id_text_view);
         callIcon = findViewById(R.id.callIconImageView);
+
+        profileImage = findViewById(R.id.profileImage);
 
         databaseManager = new ContactsDatabaseManager(this);
         databaseManager.open();
@@ -169,6 +180,10 @@ public class IndividualCallHistory extends AppCompatActivity {
 
             //NEW,fecthing the is_deleted using contact id
             currentIsDeleted = databaseManager.getCurrentIsDeleted(contactId);
+
+            // Create a circular profile image and set it to the ImageView
+            Drawable circularDrawable = getCircularTextDrawable(contactName.substring(0, 1));
+            profileImage.setImageDrawable(circularDrawable);
 
             // Find the TextView in your XML layout
 
@@ -237,6 +252,31 @@ public class IndividualCallHistory extends AppCompatActivity {
         alertDialog.show();
     }
 
+
+
+    private Drawable getCircularTextDrawable(String text) {
+        Bitmap bitmap = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setColor(getRandomColor());
+        canvas.drawCircle(60, 60, 60, paint);
+
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(60);
+        paint.setAntiAlias(true);
+        paint.setTextAlign(Paint.Align.CENTER);
+
+        float x = canvas.getWidth() / 2f;
+        float y = (canvas.getHeight() / 2f) - ((paint.descent() + paint.ascent()) / 2);
+        canvas.drawText(text, x, y, paint);
+
+        return new BitmapDrawable(getResources(), bitmap);
+    }
+
+    private int getRandomColor() {
+        Random random = new Random();
+        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

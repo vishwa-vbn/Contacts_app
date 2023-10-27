@@ -1,24 +1,45 @@
-<!-- res/layout/activity_merge_contacts.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MergeContactsActivity">
 
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_back"
+        android:paddingStart="5dp"
+        android:paddingEnd="8dp"
+        android:text="Back"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
+
     <!-- Title -->
     <TextView
         android:id="@+id/merge_contacts_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Merge Contacts"
+        android:layout_below="@id/back_button"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
         android:padding="5dp"
-        android:layout_marginTop="5dp" />
+        android:text="Merge and Fix"
+        android:textSize="24sp"
+        android:textColor="#333333" />
 
     <!-- RecyclerView to display merge boxes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mergeContactsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/merge_contacts_title" />
-
+        android:layout_below="@id/merge_contacts_title"
+        android:layout_marginTop="8dp" />
 </RelativeLayout>
