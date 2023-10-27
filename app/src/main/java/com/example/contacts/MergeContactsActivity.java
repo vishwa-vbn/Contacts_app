@@ -55,9 +55,11 @@ public class MergeContactsActivity extends Activity {
             for (int j = i + 1; j < contacts.size(); j++) {
                 Contact contact2 = contacts.get(j);
 
-                // Check if contact1 and contact2 have the same name or phone number
+                // Check if contact1 and contact2 have the same name or phone number or both same first name and phonenomber
                 if (contact1.getName().equalsIgnoreCase(contact2.getName()) ||
-                        contact1.getPhoneNumber().equals(contact2.getPhoneNumber())) {
+                        contact1.getPhoneNumber().equals(contact2.getPhoneNumber()) ||
+                        (contact1.getFirstName().equalsIgnoreCase(contact2.getFirstName()) &&
+                                contact1.getPhoneNumber().equals(contact2.getPhoneNumber()))) {
                     matchingContactPairs.add(new Pair<>(contact1, contact2));
                 }
             }

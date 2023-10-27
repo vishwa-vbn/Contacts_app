@@ -49,6 +49,8 @@ public class MergeContactsAdapter extends RecyclerView.Adapter<MergeContactsAdap
         String phoneNumber1 = contact1.getPhoneNumber();
         String name2 = contact2.getName();
         String phoneNumber2 = contact2.getPhoneNumber();
+        String firstName1 = contact1.getFirstName();
+        String firstName2 = contact2.getFirstName();
 
         // Set the contact information in your layout
         holder.nameTextView1.setText(name1);
@@ -61,7 +63,7 @@ public class MergeContactsAdapter extends RecyclerView.Adapter<MergeContactsAdap
             @Override
             public void onClick(View v) {
                 // Handle Merge button click for contact1 and contact2
-                if (name1.equals(name2)){
+                if (name1.equals(name2) || firstName1.equals(firstName2)){
                     String mergedPhoneNumbers = phoneNumber1 + ", " + phoneNumber2;
                     long contactId = contact1.getId();
                     updateContactPhoneNumber(contactId, mergedPhoneNumbers);

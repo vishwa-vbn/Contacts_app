@@ -72,6 +72,10 @@ public class Contact {
         this.id = id;
     }
 
+    public  String  getFirstName(){ return firstName; }
+
+    public  String  getLastName(){ return lastName; }
+
     public String getName() {
         return firstName + " " + lastName;
     }
