@@ -218,7 +218,7 @@ public class Main_Group extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MyAdapter2 adapter;
-    private Button create_btn;
+    private Button create_btn,back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,12 +229,21 @@ public class Main_Group extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         create_btn = findViewById(R.id.create_group_btn);
+        back_btn= findViewById(R.id.back_button);
+
 
         create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Main_Group.this, groupcreation.class);
                 startActivity(i);
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
