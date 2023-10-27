@@ -797,7 +797,7 @@ public class ContactsDatabaseManager {
     }
 
 
-
+//commit check
 
     public List<Contact> getAllContacts() {
         List<Contact> contacts = new ArrayList<>();
