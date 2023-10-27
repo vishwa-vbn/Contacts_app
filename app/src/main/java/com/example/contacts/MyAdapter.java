@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ContactViewHolder>
     private List<Contact> contacts;
     private Context context;
     private OnContactClickListener clickListener; // Add the listener
+    private List<Long> selectedContactIds = new ArrayList<>();
 
     public List<Contact> getSelectedContacts() {
         List<Contact> selectedContacts = new ArrayList<>();
@@ -81,6 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ContactViewHolder>
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Update the isSelected property of the contact
             contact.setSelected(isChecked);
+            Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
         });
 
         // Handle contact item click (if needed)
