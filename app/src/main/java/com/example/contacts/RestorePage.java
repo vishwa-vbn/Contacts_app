@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ public class RestorePage extends AppCompatActivity {
     private MyAdapter adapter;
     private ContactsDatabaseManager databaseManager;
     Button saveButton;
+    Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,14 @@ public class RestorePage extends AppCompatActivity {
                     Log.d("SelectedContactID", "Contact ID: " + contactId);
                 }
                 finish();
+            }
+        });
+        cancelButton = findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RestorePage.this,MainActivity.class);
+                startActivity(i);
             }
         });
         databaseManager.close();
