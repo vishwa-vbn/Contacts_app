@@ -1,0 +1,66 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Today Heading -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="start"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Today RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/today_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp"
+         />
+
+    <!-- Yesterday Heading -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yesterday"
+        android:layout_margin="8dp"
+        android:layout_gravity="start"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Yesterday RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/yesterday_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+       />
+
+    <!-- Older Heading -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Older"
+        android:layout_margin="8dp"
+        android:layout_gravity="start"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Older RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/older_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp"
+       />
+</LinearLayout>

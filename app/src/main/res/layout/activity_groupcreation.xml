@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:padding="16dp"
+    >
+
+    <!-- Group Name Heading -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_back"
+        android:paddingStart="5dp"
+        android:paddingEnd="8dp"
+        android:text="Back"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/groupNameHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="Group"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <!-- Gray Separator Line Below Heading -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/groupNameHeading"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <!-- Group Name EditText -->
+    <EditText
+        android:id="@+id/groupNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Enter Group Name"
+        android:inputType="text"
+        android:layout_below="@+id/groupNameHeading"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_bg"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+
+    <!-- Contacts RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contactsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/groupNameEditText"
+        android:layout_above="@+id/buttonLayout"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp" />
+
+    <!-- Save and Cancel Buttons -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/button_bg"
+            android:text="Save"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_bg"
+            android:text="Cancel"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+</RelativeLayout>

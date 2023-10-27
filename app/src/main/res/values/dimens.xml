@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Size for the circular profile image -->
+    <dimen name="circular_image_size">48dp</dimen>
+
+    <!-- Text size for the initial letter on the circular profile image -->
+    <dimen name="circular_image_text_size">20sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

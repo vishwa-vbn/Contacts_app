@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- First Contact Information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/firstName1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name 1" />
+        <TextView
+            android:id="@+id/phoneNumber1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number 1" />
+    </LinearLayout>
+
+    <!-- Second Contact Information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/firstName2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name 2" />
+        <TextView
+            android:id="@+id/phoneNumber2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number 2" />
+    </LinearLayout>
+
+    <!-- Merge and Dismiss buttons at the bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/mergeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Merge" />
+        <Button
+            android:id="@+id/dismissButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Dismiss" />
+    </LinearLayout>
+</LinearLayout>

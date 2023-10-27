@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="end">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorites"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+
+            android:id="@+id/frequents_text_view"/>
+
+        <Button
+            android:id="@+id/add_favorite_button"
+            style="@style/TransparentButton"
+            android:text="Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorites_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_below="@id/add_favorite_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:scrollbars="vertical" />
+
+
+    <!-- Separation Space -->
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Frequents"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+
+
+        android:layout_height="wrap_content"/>
+
+    <!-- Frequents RecyclerView (Vertical) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/frequents_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" />
+
+</LinearLayout>

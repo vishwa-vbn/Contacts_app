@@ -1,0 +1,24 @@
+<!-- res/layout/activity_merge_contacts.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MergeContactsActivity">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/merge_contacts_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Merge Contacts"
+        android:padding="5dp"
+        android:layout_marginTop="5dp" />
+
+    <!-- RecyclerView to display merge boxes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mergeContactsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/merge_contacts_title" />
+
+</RelativeLayout>

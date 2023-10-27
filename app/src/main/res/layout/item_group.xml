@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="1dp"
+    android:padding="5dp">
+
+    <!-- Group Name -->
+    <TextView
+        android:id="@+id/groupNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Group Name"
+        android:textSize="15sp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp" />
+
+    <!-- Edit Button -->
+    <ImageButton
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_edit_24"
+        android:layout_gravity="center_vertical"
+        android:background="#FFFFFF"/>
+
+    <!-- Delete Button -->
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_delete_24"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:background="#FFFFFF"/>
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="circular_image_background">#FF4081</color>
+    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="custom_menu_icon_color">#050505</color>
+
+
+</resources>
