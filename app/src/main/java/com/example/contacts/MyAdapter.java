@@ -30,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ContactViewHolder>
     private List<Contact> contacts;
     private Context context;
     private OnContactClickListener clickListener; // Add the listener
-    private List<Long> selectedContactIds = new ArrayList<>();
+//    private List<Long> selectedContactIds = new ArrayList<>();
 
     public List<Contact> getSelectedContacts() {
         List<Contact> selectedContacts = new ArrayList<>();
