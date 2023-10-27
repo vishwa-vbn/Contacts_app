@@ -1062,6 +1062,26 @@ public class ContactsDatabaseManager {
         return deletedContacts;
     }
 
+    //NEW , Restore page code
+    public int restoreContact(long contactId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_IS_DELETED, 0); // Set is_deleted to 0 to mark the contact as not deleted
+
+        String whereClause = COLUMN_ID + " = ?";
+        String[] whereArgs = {String.valueOf(contactId)};
+
+        try {
+            return db.update(TABLE_CONTACTS, values, whereClause, whereArgs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the error
+            return 0;
+        } finally {
+            db.close();
+        }
+    }
 
 
 
