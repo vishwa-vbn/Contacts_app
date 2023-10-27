@@ -118,7 +118,7 @@ public class groupcreation extends AppCompatActivity {
 
     private EditText groupNameEditText;
     private RecyclerView recyclerView;
-    private Button saveButton;
+    private Button saveButton,back_btn;
     private MyAdapter adapter;
     private ContactsDatabaseManager databaseManager;
     private List<Contact> contacts;
@@ -132,6 +132,16 @@ public class groupcreation extends AppCompatActivity {
         groupNameEditText = findViewById(R.id.groupNameEditText);
         recyclerView = findViewById(R.id.contactsRecyclerView);
         saveButton = findViewById(R.id.saveButton);
+        back_btn= findViewById(R.id.back_button);
+
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Initialize your database manager and open the connection
         databaseManager = new ContactsDatabaseManager(this);
