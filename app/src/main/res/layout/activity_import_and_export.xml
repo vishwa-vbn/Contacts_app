@@ -9,32 +9,21 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Import and Export"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toEndOf="@+id/imageButton3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.296"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_back" />
-
-    <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="375dp"
+        android:layout_width="350dp"
         android:layout_height="100dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -42,9 +31,9 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="375dp"
+        android:layout_width="350dp"
         android:layout_height="100dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
@@ -53,7 +42,7 @@
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="175dp"
-        android:layout_height="37dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +58,10 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="@+id/imageView9"
+        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:layout_constraintVertical_bias="0.538" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -100,7 +91,7 @@
     <ImageView
         android:id="@+id/imageView12"
         android:layout_width="175dp"
-        android:layout_height="37dp"
+        android:layout_height="50dp"
         android:layout_marginStart="100dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +109,7 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
         app:layout_constraintEnd_toEndOf="@+id/imageView12"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="@+id/imageView12" />
 
@@ -145,5 +137,14 @@
         app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="@+id/imageView6"
         app:layout_constraintVertical_bias="0.855" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/arrow_back"
+        tools:layout_editor_absoluteY="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
