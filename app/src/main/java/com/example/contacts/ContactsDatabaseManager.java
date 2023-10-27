@@ -801,34 +801,48 @@ public class ContactsDatabaseManager {
 
     public List<Contact> getAllContacts() {
         List<Contact> contacts = new ArrayList<>();
-        Cursor cursor = database.query(TABLE_CONTACTS, null, null, null, null, null, null);
+
+        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID};
+
+        // Filter out contacts with is_deleted = 1 (deleted)
+        String selection = COLUMN_IS_DELETED + " = ?";
+        String[] selectionArgs = {"0"};
+
+        Cursor cursor = database.query(
+                TABLE_CONTACTS,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-                    Contact contact = new Contact(
-                            id,
-                            cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_NUMBER)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_TYPE)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_DATE)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LABEL)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)),
-                            cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1,
-                            cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID))
-                    );
+                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+                    String firstName = cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME));
+                    String lastName = cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME));
+                    String phoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_NUMBER));
+                    String phoneType = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_TYPE));
+                    String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
+                    String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+                    String dateLabel = cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LABEL));
+                    String address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS));
+                    String notes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES));
+                    boolean isFavorite = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1;
+                    int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
+
+                    Contact contact = new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
                     contacts.add(contact);
                 } while (cursor.moveToNext());
             }
             cursor.close();
         }
-
         return contacts;
     }
+
 
     public List<CallHistoryItem> getCallLogsForContact(long contactId) {
         List<CallHistoryItem> callLogs = new ArrayList<>();
