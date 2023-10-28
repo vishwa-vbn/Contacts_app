@@ -32,6 +32,7 @@
         android:layout_height="20dp"
         android:src="@drawable/star"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
         android:layout_alignParentEnd="true"
         android:visibility="gone" />
 </RelativeLayout>
