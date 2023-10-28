@@ -22,17 +22,8 @@ public class Import_and_export extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_and_export); // Make sure you have a corresponding layout file.
-        ImageView myImgView = findViewById(R.id.import_btn);
 
-        myImgView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // Handle the click event here
-                // You can perform any action you want when the TextView is clicked.
-                // For example, you can show a message or start a new activity.
-                Toast.makeText(getApplicationContext(), "TextView clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
 
     }
