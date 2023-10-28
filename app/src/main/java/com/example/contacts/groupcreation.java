@@ -143,6 +143,7 @@ public class groupcreation extends AppCompatActivity {
             }
         });
 
+
         // Initialize your database manager and open the connection
         databaseManager = new ContactsDatabaseManager(this);
         databaseManager.open();

@@ -145,6 +145,8 @@ public class IndividualCallHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_call_history);
+        getSupportActionBar().hide();
+
 
         // Initialize the ContactsDatabaseManager
         contactsDatabaseManager = new ContactsDatabaseManager(this).open();

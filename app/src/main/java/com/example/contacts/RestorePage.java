@@ -17,7 +17,9 @@ public class RestorePage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyAdapter adapter;
     private ContactsDatabaseManager databaseManager;
-    Button saveButton;
+    Button saveButton, back_btn;
+
+
     Button cancelButton;
 
     @Override
@@ -27,6 +29,13 @@ public class RestorePage extends AppCompatActivity {
         setContentView(R.layout.activity_restore_page);
         recyclerView = findViewById(R.id.recyclerViewRestorePage);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        getSupportActionBar().hide();
+
+        back_btn= findViewById(R.id.back_button);
+
+
+
+
 
         databaseManager = new ContactsDatabaseManager(this);
         databaseManager.open();
