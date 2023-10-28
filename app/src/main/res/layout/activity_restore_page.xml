@@ -27,9 +27,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:text="Restore"
-         android:textSize="40dp"
+         android:textSize="30dp"
         android:textAlignment="textStart"
         />
+
+
+    <!-- Gray Separator Line Below Heading -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/groupNameHeading"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray" />
 
     <!-- Add a RecyclerView to your layout -->
     <androidx.recyclerview.widget.RecyclerView
@@ -43,17 +52,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_weight="1"
             android:background="@drawable/button_bg"
-            android:text="Save"
+            android:text="Restore"
             android:textColor="@android:color/black" />
 
         <Button
@@ -61,7 +72,6 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_bg"
-            android:layout_weight="1"
 
             android:text="Cancel"
             android:textColor="@android:color/black" />

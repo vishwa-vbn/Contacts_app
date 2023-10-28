@@ -5,15 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/favoritesHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:text="Favorite Contacts"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+
 
     <Button
         android:id="@+id/back_button"
@@ -31,6 +23,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/favoritesHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/back_button"
+        android:text="Add Favorites"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/favoritesHeading"
+        android:layout_marginTop="8dp"
+        android:background="#000000" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoritesRecyclerView"

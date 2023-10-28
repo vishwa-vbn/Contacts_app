@@ -11,6 +11,8 @@ import java.util.List;
 public class FavoritesActivity extends AppCompatActivity {
     private RecyclerView favoritesRecyclerView;
     private FavoritesAdapter favoritesAdapter;
+    private Button back_btn;
+
     private ContactsDatabaseManager databaseManager;
 
     @Override
@@ -18,6 +20,16 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
         getSupportActionBar().hide();
+        back_btn= findViewById(R.id.back_button);
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
 
         favoritesRecyclerView = findViewById(R.id.favoritesRecyclerView);
         databaseManager = new ContactsDatabaseManager(this);

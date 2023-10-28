@@ -115,6 +115,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -135,6 +136,8 @@ public class IndividualCallHistory extends AppCompatActivity {
     long contactId;
     private ImageView callIcon;
     private ImageButton deleteButton;
+    private Button back_btn;
+
     int currentIsDeleted;
 
     private ImageView profileImage;
@@ -146,7 +149,15 @@ public class IndividualCallHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_call_history);
         getSupportActionBar().hide();
+        back_btn= findViewById(R.id.back_button);
 
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Initialize the ContactsDatabaseManager
         contactsDatabaseManager = new ContactsDatabaseManager(this).open();

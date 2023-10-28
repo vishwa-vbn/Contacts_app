@@ -35,7 +35,12 @@ public class RestorePage extends AppCompatActivity {
 
 
 
-
+    back_btn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    });
 
         databaseManager = new ContactsDatabaseManager(this);
         databaseManager.open();
