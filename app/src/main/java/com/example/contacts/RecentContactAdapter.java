@@ -109,6 +109,7 @@ package com.example.contacts;//package com.example.contacts;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -151,6 +152,16 @@ public class RecentContactAdapter extends RecyclerView.Adapter<RecentContactAdap
         // Create a circular background with the first character of the contact name
         Drawable circularDrawable = getCircularTextDrawable(contactName);
         holder.profileImage.setImageDrawable(circularDrawable);
+
+        holder.itemView.setOnClickListener(view -> {
+            // Create an intent to open the IndividualCallHistory activity
+            Intent intent = new Intent(context, IndividualCallHistory.class);
+
+            // Pass the contact name to the IndividualCallHistory activity
+            intent.putExtra("contact_name", contactName);
+
+            context.startActivity(intent);
+        });
     }
 
     @Override
