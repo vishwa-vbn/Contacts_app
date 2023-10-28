@@ -154,7 +154,7 @@ public class IndividualCallHistory extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         TextView nameTextView = findViewById(R.id.contactNameTextView);
         TextView phoneTextView = findViewById(R.id.contactNumberTextView);
-        TextView contactIdTextView = findViewById(R.id.contact_id_text_view);
+        //TextView contactIdTextView = findViewById(R.id.contact_id_text_view);
         callIcon = findViewById(R.id.callIconImageView);
 
         profileImage = findViewById(R.id.profileImage);
@@ -178,7 +178,7 @@ public class IndividualCallHistory extends AppCompatActivity {
         if (intent != null) {
             contactName = intent.getStringExtra("contact_name");
             contactPhone = intent.getStringExtra("contact_phone");
-            contactId = getIntent().getLongExtra("contact_id", -1);
+            //contactId = getIntent().getLongExtra("contact_id", -1);
 
             //NEW,fecthing the is_deleted using contact id
             currentIsDeleted = databaseManager.getCurrentIsDeleted(contactId);
@@ -190,7 +190,7 @@ public class IndividualCallHistory extends AppCompatActivity {
             // Find the TextView in your XML layout
 
             // Set the text to display the contact ID
-            contactIdTextView.setText("Contact ID: " + contactId);
+            //contactIdTextView.setText("Contact ID: " + contactId);
 
             // Display the contact information in your layout
             if (contactName != null) {
