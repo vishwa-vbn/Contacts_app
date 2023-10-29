@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/searchview_background"
-    android:hint="@string/search_hint"
     android:padding="8dp"
     android:theme="@style/CustomSearchViewStyle"
     app:iconifiedByDefault="false"
