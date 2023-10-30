@@ -56,9 +56,7 @@
             android:name=".IndividualGroupActivity"
             android:exported="false" />
         <activity android:name=".IndividualCallHistory" />
-        <activity
-            android:name=".GroupActivity"
-            android:exported="false" />
+
         <activity android:name=".MergeContactsActivity" />
         <activity
             android:name=".MainActivity"
