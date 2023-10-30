@@ -1,99 +1,3 @@
-//package com.example.contacts;
-//
-//import android.os.Bundle;
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.recyclerview.widget.LinearLayoutManager;
-//import androidx.recyclerview.widget.RecyclerView;
-//import android.content.Intent;
-//import android.view.View;
-//import android.widget.ImageView;
-//import android.widget.TextView;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class IndividualCallHistory extends AppCompatActivity {
-//
-//    private RecyclerView recyclerView;
-//    private CallHistoryAdapter adapter;
-//    private List<CallHistoryItem> callHistoryList;
-//    String contactPhone;
-//    String contactName;
-//    long contactId;
-//
-//    private ImageView callIcon;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_individual_call_history);
-//        recyclerView = findViewById(R.id.recyclerView);
-//        TextView nameTextView = findViewById(R.id.contactNameTextView);
-//        TextView phoneTextView = findViewById(R.id.contactNumberTextView);
-//
-//        TextView contactIdTextView = findViewById(R.id.contact_id_text_view);
-//        callIcon = findViewById(R.id.callIconImageView);
-//
-//
-//        // Get the call logs for the contact (replace with the actual contact ID)
-//        List<CallHistoryItem> callLogs = contactsDatabaseManager.getCallLogsForContact(contactId);
-//
-//        // Create and set the adapter
-//        CallHistoryAdapter adapter = new CallHistoryAdapter(this, callLogs);
-//        recyclerView.setAdapter(adapter);
-//
-//
-//
-//
-//
-//        // Retrieve contact information from the intent
-//        Intent intent = getIntent();
-//        if (intent != null) {
-//            contactName = intent.getStringExtra("contact_name");
-//            contactPhone = intent.getStringExtra("contact_phone");
-//
-//
-//            contactId = getIntent().getLongExtra("contact_id", -1);
-//
-//            // Find the TextView in your XML layout
-//
-//            // Set the text to display the contact ID
-//            contactIdTextView.setText("Contact ID: " + contactId);
-//
-//            // Display the contact information in your layout
-//            if (contactName != null) {
-//                nameTextView.setText(contactName);
-//            }
-//
-//            if (contactPhone != null) {
-//                phoneTextView.setText(contactPhone);
-//            }
-//        }
-//
-//
-//        callIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//                Intent intent = new Intent(IndividualCallHistory.this, CallOutGoing.class);
-//
-//                // Pass the contact details to the IndividualCallHistory activity
-//                intent.putExtra("contact_id", contactId);
-//                intent.putExtra("contact_name", contactName);
-//                intent.putExtra("contact_phone", contactPhone);
-//
-//                startActivity(intent);
-//
-//            }
-//        });
-//    }
-//}
-//
-
-
-
 
 
 
@@ -102,31 +6,31 @@
 
 package com.example.contacts;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import android.app.AlertDialog;
+        import android.content.DialogInterface;
+        import android.graphics.Bitmap;
+        import android.graphics.Canvas;
+        import android.graphics.Color;
+        import android.graphics.Paint;
+        import android.graphics.drawable.BitmapDrawable;
+        import android.graphics.drawable.Drawable;
+        import android.os.Bundle;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
+        import android.widget.TextView;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-import java.util.Random;
+        import java.util.List;
+        import java.util.Random;
 
-public class IndividualCallHistory extends AppCompatActivity {
+public class  IndividualCallHistory extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private CallHistoryAdapter adapter;
@@ -134,13 +38,14 @@ public class IndividualCallHistory extends AppCompatActivity {
     String contactPhone;
     String contactName;
     long contactId;
-    private ImageView callIcon;
-    private ImageButton deleteButton;
-    private Button back_btn;
-
-    int currentIsDeleted;
 
     private ImageView profileImage;
+
+    private Button back_btn;
+
+    private ImageView callIcon;
+    private ImageButton deleteButton;
+    int currentIsDeleted;
     private ContactsDatabaseManager contactsDatabaseManager;
     private ContactsDatabaseManager databaseManager;
 
@@ -149,6 +54,9 @@ public class IndividualCallHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_call_history);
         getSupportActionBar().hide();
+
+
+
         back_btn= findViewById(R.id.back_button);
 
 
@@ -158,16 +66,13 @@ public class IndividualCallHistory extends AppCompatActivity {
                 finish();
             }
         });
-
         // Initialize the ContactsDatabaseManager
         contactsDatabaseManager = new ContactsDatabaseManager(this).open();
 
         recyclerView = findViewById(R.id.recyclerView);
         TextView nameTextView = findViewById(R.id.contactNameTextView);
         TextView phoneTextView = findViewById(R.id.contactNumberTextView);
-        //TextView contactIdTextView = findViewById(R.id.contact_id_text_view);
         callIcon = findViewById(R.id.callIconImageView);
-
         profileImage = findViewById(R.id.profileImage);
 
         databaseManager = new ContactsDatabaseManager(this);
@@ -189,19 +94,21 @@ public class IndividualCallHistory extends AppCompatActivity {
         if (intent != null) {
             contactName = intent.getStringExtra("contact_name");
             contactPhone = intent.getStringExtra("contact_phone");
-            //contactId = getIntent().getLongExtra("contact_id", -1);
+            contactId = getIntent().getLongExtra("contact_id", -1);
 
             //NEW,fecthing the is_deleted using contact id
             currentIsDeleted = databaseManager.getCurrentIsDeleted(contactId);
 
-            // Create a circular profile image and set it to the ImageView
-            Drawable circularDrawable = getCircularTextDrawable(contactName.substring(0, 1));
-            profileImage.setImageDrawable(circularDrawable);
 
             // Find the TextView in your XML layout
 
+
+
+            Drawable circularDrawable = getCircularTextDrawable(contactName.substring(0, 1));
+            profileImage.setImageDrawable(circularDrawable);
+
+
             // Set the text to display the contact ID
-            //contactIdTextView.setText("Contact ID: " + contactId);
 
             // Display the contact information in your layout
             if (contactName != null) {
@@ -264,7 +171,6 @@ public class IndividualCallHistory extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 
 
     private Drawable getCircularTextDrawable(String text) {
