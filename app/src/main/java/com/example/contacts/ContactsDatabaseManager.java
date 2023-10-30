@@ -1044,6 +1044,7 @@ public class ContactsDatabaseManager {
                 null,
                 null
         );
+        //ok
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {

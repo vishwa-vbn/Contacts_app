@@ -142,6 +142,7 @@ public class RecentContactAdapter extends RecyclerView.Adapter<RecentContactAdap
         View view = LayoutInflater.from(context).inflate(R.layout.item_contact, parent, false);
         return new ContactViewHolder(view);
     }
+    //ok
 
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
