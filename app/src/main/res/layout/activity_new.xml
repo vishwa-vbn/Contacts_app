@@ -52,6 +52,7 @@
             android:orientation="vertical">
 
             <FrameLayout
+                android:id="@+id/profile_photo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center">
@@ -64,7 +65,7 @@
 
                 <ImageView
                     android:id="@+id/imageView7"
-                    android:layout_width="50dp"
+                    android:layout_width="46dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/vector" />
@@ -189,9 +190,31 @@
                     android:inputType="textEmailAddress" />
             </LinearLayout>
 
+            <!-- Spinner for Date Types -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/dateTypesIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center" />
+
+                <Spinner
+                    android:id="@+id/dateTypes"
+                    style="@style/SpinnerStyle"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/date_types" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
 
                 <ImageView
                     android:id="@+id/calenderIcon"
@@ -212,25 +235,7 @@
                     android:spinnersShown="true" />
             </LinearLayout>
 
-            <!-- Spinner for Date Types -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/dateTypesIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center" />
-
-                <Spinner
-                    android:id="@+id/dateTypes"
-                    style="@style/SpinnerStyle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="1"
-                    android:entries="@array/date_types" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
