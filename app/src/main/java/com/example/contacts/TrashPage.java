@@ -16,12 +16,22 @@ public class TrashPage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ContactsAdapter adapter;
     private ContactsDatabaseManager databaseManager;
-    Button cancelButton;
+    Button cancelButton,back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trash_page);
+        getSupportActionBar().hide();
+        back_btn= findViewById(R.id.back_button);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         recyclerView = findViewById(R.id.recyclerViewTrashPage);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -35,7 +45,7 @@ public class TrashPage extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        cancelButton = findViewById(R.id.cancelButton);
+        cancelButton = findViewById(R.id.Delete_Button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

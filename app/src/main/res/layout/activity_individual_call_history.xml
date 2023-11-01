@@ -7,18 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".IndividualCallHistory">
 
-    <!-- Profile Image -->
+
+    <!-- Group Name Heading -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_back"
+        android:paddingStart="5dp"
+        android:paddingEnd="8dp"
+        android:text="Back"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="140dp"
         android:src="@drawable/circle_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Contact Name -->
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/baseline_delete_24" />
+
     <TextView
         android:id="@+id/contactNameTextView"
         android:layout_width="wrap_content"
@@ -31,7 +59,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Contact Number -->
     <TextView
         android:id="@+id/contactNumberTextView"
         android:layout_width="wrap_content"
@@ -44,9 +71,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- Horizontal LinearLayout for Icons -->
     <LinearLayout
-        android:id="@+id/linear"
+        android:id="@+id/iconLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -56,57 +82,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp">
 
-        <!-- Call Icon -->
         <ImageView
             android:id="@+id/callIconImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/baseline_call_24"
-            android:tint="@color/black" />
+            app:tint="@color/black" />
 
-        <!-- Message Icon -->
         <ImageView
             android:id="@+id/messageIconImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/baseline_message_24"
-            android:tint="@color/black"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            app:tint="@color/black" />
 
-        <!-- Video Icon -->
         <ImageView
             android:id="@+id/videoIconImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/video"
-            android:tint="@color/black"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            app:tint="@color/black" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linear2"
+        android:id="@+id/detailsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconLayout">
 
-
-        <TextView
-            android:id="@+id/contact_id_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact ID: -1"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal" />
-
-
-        <!-- Call History Heading -->
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -114,34 +124,13 @@
             android:layout_marginTop="16dp"
             android:text="Call History"
             android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/callIconImageView" />
+            android:textStyle="bold" />
 
-        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear" />
-
+            android:paddingLeft="10dp"/>
     </LinearLayout>
-    <ImageButton
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.087"
-        app:srcCompat="@drawable/baseline_delete_24" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

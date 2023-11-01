@@ -3,6 +3,8 @@ package com.example.contacts;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,11 +17,23 @@ public class MergeContactsActivity extends Activity {
 
     private RecyclerView mergeContactsRecyclerView;
     ContactsDatabaseManager databaseManager;
+    private Button back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_merge_contacts);
+        back_btn= findViewById(R.id.back_button);
+
+
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mergeContactsRecyclerView = findViewById(R.id.mergeContactsRecyclerView);
 
@@ -42,6 +56,8 @@ public class MergeContactsActivity extends Activity {
             databaseManager.close();
         }
     }
+
+
 
 
     private List<Pair<Contact, Contact>> GroupMatchingContacts(List<Contact> contacts) {

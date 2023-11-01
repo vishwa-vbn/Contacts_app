@@ -3,7 +3,6 @@
 
     <item
         android:id="@+id/search"
-
         android:icon="@drawable/ic_search"
         android:title="Search Contacts"
         app:showAsAction="always"

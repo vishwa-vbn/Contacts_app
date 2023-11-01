@@ -14,7 +14,8 @@
             android:text="Favorites"
             android:padding="5dp"
             android:layout_marginTop="5dp"
-
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:id="@+id/frequents_text_view"/>
 
         <Button
@@ -46,8 +47,8 @@
         android:text="Frequents"
         android:padding="5dp"
         android:layout_marginTop="5dp"
-
-
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_height="wrap_content"/>
 
     <!-- Frequents RecyclerView (Vertical) -->

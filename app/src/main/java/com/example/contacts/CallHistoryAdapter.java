@@ -114,13 +114,13 @@ public class CallHistoryAdapter extends RecyclerView.Adapter<CallHistoryAdapter.
 
         holder.dateTimeTextView.setText(item.getDateTime());
         holder.phoneNumberTextView.setText(item.getPhoneNumber());
-
+        holder.dateTimeTextView.setTextColor(Color.BLACK); // Default text color
         // Check if it's the 3rd item (position % 3 == 2) and set the text color of dateTimeTextView accordingly
-        if (position % 3 == 2) {
-            holder.dateTimeTextView.setTextColor(Color.RED); // Set red text color
-        } else {
-            holder.dateTimeTextView.setTextColor(Color.BLACK); // Default text color
-        }
+//        if (position % 3 == 2) {
+//            holder.dateTimeTextView.setTextColor(Color.RED); // Set red text color
+//        } else {
+//            holder.dateTimeTextView.setTextColor(Color.BLACK); // Default text color
+//        }
 
 
 

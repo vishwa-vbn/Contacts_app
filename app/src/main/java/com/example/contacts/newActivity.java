@@ -19,6 +19,8 @@ public class newActivity extends AppCompatActivity {
     private EditText notesEditText;
     private Spinner phoneTypeSpinner;
     private Spinner dateLabelSpinner;
+    private Button back_btn;
+
 
     private boolean isFavorite = false; // Initialize isFavorite as false (not set)
     private int groupId = 0; // Initialize groupId as -1 (not set)
@@ -33,6 +35,8 @@ public class newActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
         getSupportActionBar().hide();
+        back_btn= findViewById(R.id.back_button);
+
 
 
         databaseManager = new ContactsDatabaseManager(this).open();
@@ -46,7 +50,20 @@ public class newActivity extends AppCompatActivity {
         phoneTypeSpinner = findViewById(R.id.spinnerContactType);
         dateLabelSpinner = findViewById(R.id.dateTypes);
 
+
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
+
         datePickerBirthday = findViewById(R.id.datePickerBirthday);
+
+
+
 
         datePickerBirthday.init(
                 datePickerBirthday.getYear(),
