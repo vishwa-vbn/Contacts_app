@@ -55,10 +55,7 @@ public class  IndividualCallHistory extends AppCompatActivity {
         setContentView(R.layout.activity_individual_call_history);
         getSupportActionBar().hide();
 
-
-
         back_btn= findViewById(R.id.back_button);
-
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
