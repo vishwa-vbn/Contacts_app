@@ -1,7 +1,9 @@
 package com.example.contacts;
 
 import android.content.Intent;
+
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -135,8 +137,12 @@ public class newActivity extends AppCompatActivity {
         );
 
         if (result != -1) {
-            // Contact saved successfully
-            Toast.makeText(this, "Contact saved successfully", Toast.LENGTH_SHORT).show();
+
+
+            finish();
+
+
+
         } else {
             // Error while saving the contact
             Toast.makeText(this, "Error saving the contact", Toast.LENGTH_SHORT).show();

@@ -17,7 +17,9 @@ public class ContactsListFragment extends Fragment implements ContactsAdapter.On
     private ContactsAdapter adapter;
     private ContactsDatabaseManager databaseManager;
 
-
+    public void updateContactList(List<Contact> updatedContacts) {
+        adapter.updateContacts(updatedContacts);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +41,25 @@ public class ContactsListFragment extends Fragment implements ContactsAdapter.On
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Reload contacts when the fragment is resumed
+        contacts = getContactsFromDatabase();
+        updateContactList(contacts);
+    }
+    public void addOrUpdateContact(Contact contact) {
+        // Add or update the contact in your database
+        // ...
+
+        // Get the updated list of contacts
+        List<Contact> updatedContacts = getContactsFromDatabase();
+
+        // Update the dataset in the fragment
+        updateContactList(updatedContacts);
+    }
 
 
     public void searchContacts(String query) {
