@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         Contact contact = favoriteContacts.get(position);
 
         holder.contactNameTextView.setText(contact.getName());
+        holder.favoriteCheckBox.setOnCheckedChangeListener(null);
         holder.favoriteCheckBox.setChecked(contact.isFavorite());
 
         // Set profile image or initial letter with circular background
@@ -55,13 +57,36 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         holder.favoriteCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Update the 'isFavorite' field of the contact
+                // Update the 'isFavorite' field of the contact in memory
                 contact.setFavorite(isChecked);
 
-                // Update the database
-                databaseManager.setContactFavorite(contact.getId(), isChecked);
+                // Update the database asynchronously
+                updateContactFavoriteAsync(contact, isChecked);
             }
         });
+    }
+
+
+
+
+    private void updateContactFavoriteAsync(Contact contact, boolean isFavorite) {
+        // Perform the database operation in a background thread or AsyncTask
+        // You can use a separate thread or an AsyncTask to update the database
+        // Make sure to update the UI on the main thread after the operation is complete.
+        // Example:
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                // Update the database
+                databaseManager.setContactFavorite(contact.getId(), isFavorite);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                // Update the UI on the main thread if needed
+            }
+        }.execute();
     }
 
     @Override

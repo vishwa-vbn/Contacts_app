@@ -1,9 +1,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/baseline_menu_24"
-    android:width="40dp"
+    android:width="50dp"
         android:end="0dp"
         android:right="0dp"
-    android:height="48dp"
+    android:height="75dp"
     android:gravity="center" />
 </layer-list>

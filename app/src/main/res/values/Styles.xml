@@ -11,7 +11,16 @@
         <item name="android:textSize">18dp</item>
 
     </style>
-zzz
+
+
+
+
+    <style name="ProfileIconStyle">
+        <item name="android:layout_width">80dp</item> <!-- Set the width to 80dp -->
+        <item name="android:layout_height">80dp</item> <!-- Set the height to 80dp -->
+        <!-- Add any other style attributes you want to change -->
+    </style>
+
 
     <style name="CustomSearchViewStyle">
         <item name="android:editTextColor">@android:color/black</item>

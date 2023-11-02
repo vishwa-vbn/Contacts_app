@@ -14,7 +14,6 @@
         android:icon="@drawable/ic_profile"
         app:showAsAction="always"
         android:title=""
-        android:background="@color/colorPrimary"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:clickable="true" />

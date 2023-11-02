@@ -871,17 +871,60 @@ public class ContactsDatabaseManager {
         return callLogs;
     }
 
+//    public List<Contact> getFrequentContacts() {
+//        List<Contact> frequentContacts = new ArrayList<>();
+//        String[] projection = {COLUMN_CONTACT_ID, "COUNT(*) AS call_count"};
+//        String groupBy = COLUMN_CONTACT_ID;
+//        String orderBy = "call_count DESC";
+//        String limit = "5";
+//
+//        Cursor cursor = database.query(
+//                TABLE_CALL_LOG,
+//                projection,
+//                null,
+//                null,
+//                groupBy,
+//                null,
+//                orderBy,
+//                limit
+//        );
+//
+//        if (cursor != null) {
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_CONTACT_ID));
+//                    Contact contact = getContactDetails(contactId);
+//                    if (contact != null) {
+//                        frequentContacts.add(contact);
+//                    }
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//        }
+//
+//        return frequentContacts;
+//    }
+
+
+
     public List<Contact> getFrequentContacts() {
-        List<Contact> frequentContacts = new ArrayList<>();
-        String[] projection = {COLUMN_CONTACT_ID, "COUNT(*) AS call_count"};
-        String groupBy = COLUMN_CONTACT_ID;
+        List<Contact> frequentFavoriteContacts = new ArrayList<>();
+        String[] projection = {TABLE_CONTACTS + "." + COLUMN_ID, "COUNT(*) AS call_count"};
+        String groupBy = TABLE_CONTACTS + "." + COLUMN_ID;
         String orderBy = "call_count DESC";
         String limit = "5";
 
+        // Join the TABLE_CALL_LOG with TABLE_CONTACTS on the contact ID
+        String tables = TABLE_CALL_LOG + " INNER JOIN " + TABLE_CONTACTS + " ON " +
+                TABLE_CALL_LOG + "." + COLUMN_CONTACT_ID + " = " +
+                TABLE_CONTACTS + "." + COLUMN_ID;
+
+        String selection = TABLE_CONTACTS + "." + COLUMN_IS_FAVORITE + " = 1"; // Add the WHERE clause
+
         Cursor cursor = database.query(
-                TABLE_CALL_LOG,
+                tables,
                 projection,
-                null,
+                selection, // Use the WHERE clause
                 null,
                 groupBy,
                 null,
@@ -892,18 +935,17 @@ public class ContactsDatabaseManager {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_CONTACT_ID));
-                    markContactAsFavorite(contactId);
+                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
                     Contact contact = getContactDetails(contactId);
                     if (contact != null) {
-                        frequentContacts.add(contact);
+                        frequentFavoriteContacts.add(contact);
                     }
                 } while (cursor.moveToNext());
             }
             cursor.close();
         }
 
-        return frequentContacts;
+        return frequentFavoriteContacts;
     }
 
     public Contact getContactDetails(long contactId) {
@@ -1086,15 +1128,6 @@ public class ContactsDatabaseManager {
 
 
 
-    public void markContactAsFavorite(long contactId) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_IS_FAVORITE, 1);
-
-        String whereClause = COLUMN_ID + " = ?";
-        String[] whereArgs = {String.valueOf(contactId)};
-
-        database.update(TABLE_CONTACTS, values, whereClause, whereArgs);
-    }
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {

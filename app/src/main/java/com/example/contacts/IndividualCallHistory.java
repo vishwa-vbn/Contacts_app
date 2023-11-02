@@ -173,6 +173,18 @@ public class  IndividualCallHistory extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Get the call logs for the contact (replace with the actual contact ID)
+        List<CallHistoryItem> callLogs = contactsDatabaseManager.getCallLogsForContact(contactId);
+
+        // Update the adapter with the refreshed call history
+        adapter.updateCallHistory(callLogs);
+    }
+
+
     private Drawable getCircularTextDrawable(String text) {
         Bitmap bitmap = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

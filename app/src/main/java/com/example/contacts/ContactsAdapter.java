@@ -473,6 +473,11 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     private OnContactClickListener clickListener; // Add the listener
     private boolean displayDeletedContacts;
 
+    public void updateContacts(List<Contact> updatedContacts) {
+        this.contacts = updatedContacts;
+        notifyDataSetChanged();
+    }
+
     public List<Contact> getSelectedContacts() {
         List<Contact> selectedContacts = new ArrayList<>();
 
