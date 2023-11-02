@@ -474,7 +474,7 @@ import java.util.List;
 public class ContactsDatabaseManager {
 
     private static final String DATABASE_NAME = "ContactsDatabase";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     private static final String TABLE_CONTACTS = "contacts";
     private static final String COLUMN_ID = "id";
@@ -492,6 +492,7 @@ public class ContactsDatabaseManager {
 
     private static final String TABLE_GROUPS = "groups";
     private static final String COLUMN_GROUP_NAME = "group_name";
+    private static final String COLUMN_PROFILE_PICTURE_PATH = "profile_picture_path";
 
     private static final String COLUMN_IS_DELETED = "is_deleted";
 
@@ -509,6 +510,7 @@ public class ContactsDatabaseManager {
                     COLUMN_NOTES + " TEXT, " +
                     COLUMN_IS_FAVORITE + " INTEGER, " +
                     COLUMN_GROUP_ID + " INTEGER," +
+                    COLUMN_PROFILE_PICTURE_PATH + " TEXT," +
                     COLUMN_IS_DELETED + " INTEGER DEFAULT 0);" ;
 
     private static final String TABLE_CALL_LOG = "call_log";
@@ -566,7 +568,7 @@ public class ContactsDatabaseManager {
 
     public long insertContact(String firstName, String lastName, String phoneNumber, String phoneType,
                               String email, String date, String dateLabel, String address,
-                              String notes, boolean isFavorite, int groupId) {
+                              String notes, boolean isFavorite, int groupId, String profilePicturePath) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_FIRST_NAME, firstName);
         values.put(COLUMN_LAST_NAME, lastName);
@@ -579,6 +581,7 @@ public class ContactsDatabaseManager {
         values.put(COLUMN_NOTES, notes);
         values.put(COLUMN_IS_FAVORITE, isFavorite);
         values.put(COLUMN_GROUP_ID, groupId);
+        values.put(COLUMN_PROFILE_PICTURE_PATH, profilePicturePath); // New column
 
         try {
             long result = database.insert(TABLE_CONTACTS, null, values);
@@ -615,20 +618,6 @@ public class ContactsDatabaseManager {
         ContentValues values = new ContentValues();
         values.put(COLUMN_GROUP_NAME, groupName);
         return database.insert(TABLE_GROUPS, null, values);
-    }
-
-    public long insertContactToGroup(long contactId, long groupId) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_CONTACT_ID, contactId);
-        values.put(COLUMN_GROUP_ID, groupId);
-
-        try {
-            long result = database.insert(TABLE_CONTACT_GROUP_ASSOCIATION, null, values);
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
     }
 
 
@@ -799,10 +788,58 @@ public class ContactsDatabaseManager {
 
 //commit check
 
+//    public List<Contact> getAllContacts() {
+//        List<Contact> contacts = new ArrayList<>();
+//
+//        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID};
+//
+//        // Filter out contacts with is_deleted = 1 (deleted)
+//        String selection = COLUMN_IS_DELETED + " = ?";
+//        String[] selectionArgs = {"0"};
+//
+//        Cursor cursor = database.query(
+//                TABLE_CONTACTS,
+//                columns,
+//                selection,
+//                selectionArgs,
+//                null,
+//                null,
+//                null
+//        );
+//
+//        if (cursor != null) {
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+//                    String firstName = cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME));
+//                    String lastName = cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME));
+//                    String phoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_NUMBER));
+//                    String phoneType = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_TYPE));
+//                    String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
+//                    String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+//                    String dateLabel = cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LABEL));
+//                    String address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS));
+//                    String notes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES));
+//                    boolean isFavorite = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1;
+//                    int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
+//
+//                    Contact contact = new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
+//                    contacts.add(contact);
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//        }
+//        return contacts;
+//    }
+
+
+
+
+
     public List<Contact> getAllContacts() {
         List<Contact> contacts = new ArrayList<>();
 
-        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID};
+        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID, COLUMN_PROFILE_PICTURE_PATH};
 
         // Filter out contacts with is_deleted = 1 (deleted)
         String selection = COLUMN_IS_DELETED + " = ?";
@@ -833,8 +870,13 @@ public class ContactsDatabaseManager {
                     String notes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES));
                     boolean isFavorite = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1;
                     int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
+                    String profilePicturePath = cursor.getString(cursor.getColumnIndex(COLUMN_PROFILE_PICTURE_PATH));
 
                     Contact contact = new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
+
+                    // Set the profile picture path for the contact
+                    contact.setProfilePicturePath(profilePicturePath);
+
                     contacts.add(contact);
                 } while (cursor.moveToNext());
             }
@@ -871,39 +913,47 @@ public class ContactsDatabaseManager {
         return callLogs;
     }
 
-//    public List<Contact> getFrequentContacts() {
-//        List<Contact> frequentContacts = new ArrayList<>();
-//        String[] projection = {COLUMN_CONTACT_ID, "COUNT(*) AS call_count"};
-//        String groupBy = COLUMN_CONTACT_ID;
-//        String orderBy = "call_count DESC";
-//        String limit = "5";
-//
-//        Cursor cursor = database.query(
-//                TABLE_CALL_LOG,
-//                projection,
-//                null,
-//                null,
-//                groupBy,
-//                null,
-//                orderBy,
-//                limit
-//        );
-//
-//        if (cursor != null) {
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_CONTACT_ID));
-//                    Contact contact = getContactDetails(contactId);
-//                    if (contact != null) {
-//                        frequentContacts.add(contact);
-//                    }
-//                } while (cursor.moveToNext());
-//            }
-//            cursor.close();
-//        }
-//
-//        return frequentContacts;
-//    }
+
+    public long insertContactToGroup(long contactId, long groupId) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CONTACT_ID, contactId);
+        values.put(COLUMN_GROUP_ID, groupId);
+
+        try {
+            return database.insert(TABLE_CONTACT_GROUP_ASSOCIATION, null, values);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Handle the error
+        }
+    }
+
+    public int updateGroup(long groupId, String newGroupName) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GROUP_NAME, newGroupName);
+
+        String whereClause = COLUMN_GROUP_ID + " = ?";
+        String[] whereArgs = {String.valueOf(groupId)};
+
+        try {
+            return database.update(TABLE_GROUPS, values, whereClause, whereArgs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0; // Handle the error
+        }
+    }
+
+
+    public void clearGroupMembers(long groupId) {
+        String whereClause = COLUMN_GROUP_ID + " = ?";
+        String[] whereArgs = {String.valueOf(groupId)};
+
+        try {
+            database.delete(TABLE_CONTACT_GROUP_ASSOCIATION, whereClause, whereArgs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the error
+        }
+    }
 
 
 

@@ -25,6 +25,8 @@ public class Contact {
     private String group;
     private Bitmap image;
 
+    private String profilePicturePath;
+
     public Contact(long id, String firstName, String lastName, String phoneNumber, String phoneType,
                    String email, String date, String dateLabel, String address,
                    String notes, boolean isFavorite, int groupId) {
@@ -41,6 +43,8 @@ public class Contact {
         this.isFavorite = isFavorite;
         this.groupId = groupId;
         this.isSelected = false;
+        this.profilePicturePath = "";
+        this.image = null;
     }
 
 
@@ -64,6 +68,15 @@ public class Contact {
     }
 
 
+
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    // Add a setter method for the profile picture path
+    public void setProfilePicturePath(String profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
+    }
     public long getId() {
         return id;
     }

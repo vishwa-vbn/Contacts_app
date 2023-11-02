@@ -447,11 +447,13 @@ package com.example.contacts;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -461,6 +463,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.contacts.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -511,7 +514,35 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_contact, parent, false);
         return new ContactViewHolder(view);
+
+
+
     }
+
+
+    private void loadProfilePicture(String profilePicturePath, ImageView imageView) {
+        if (profilePicturePath != null && !profilePicturePath.isEmpty()) {
+            Log.d("ProfileImage", "Profile Picture Path: " + profilePicturePath); // Log the profile picture path
+            try {
+                File imageFile = new File(profilePicturePath);
+                if (imageFile.exists()) {
+                    Bitmap profileBitmap = BitmapFactory.decodeFile(profilePicturePath);
+                    if (profileBitmap != null) {
+                        imageView.setImageBitmap(profileBitmap);
+                    }
+                } else {
+                    Log.e("ProfileImage", "Image file does not exist: " + profilePicturePath);
+                }
+            } catch (Exception e) {
+                Log.e("ProfileImage", "Error loading profile picture: " + e.getMessage());
+            }
+        } else {
+            Log.d("ProfileImage", "profilePicturePath is null or empty");
+        }
+    }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
@@ -520,9 +551,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
         // Set contact name
         holder.contactName.setText(contact.getName());
 
-        // Set profile image or initial letter with circular background
+
+
         if (contact.getImage() != null) {
-            holder.profileImage.setImageBitmap(contact.getImage());
+            String profilePicturePath = contact.getProfilePicturePath();
+            Log.d("ProfileImage:path:", profilePicturePath);
+
+            loadProfilePicture(profilePicturePath, holder.profileImage);
         } else {
             Drawable circularDrawable = getCircularTextDrawable(contact.getName());
             holder.profileImage.setImageDrawable(circularDrawable);
@@ -531,10 +566,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
         holder.itemView.setOnClickListener(view -> {
             // Handle contact item click
             clickListener.onContactClick(contacts.get(position));
-        });
 
-
-        holder.itemView.setOnClickListener(view -> {
             // Create an intent to open the IndividualCallHistory activity
             long contactId = contacts.get(position).getId();
             Intent intent = new Intent(context, IndividualCallHistory.class);
@@ -546,8 +578,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
 
             context.startActivity(intent);
         });
-
-
 
         // Check if the contact is a favorite
         if (contact.isFavorite()) {
@@ -561,12 +591,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             // This contact is not a favorite, hide the star icon
             holder.favoriteIcon.setVisibility(View.GONE);
         }
-
-//
-//        if (displayDeletedContacts || contact.isDeleted() == 0) {
-//            // Bind contact data to views
-//            // ...
-//        }
     }
 
     @Override

@@ -2,9 +2,11 @@ package com.example.contacts;
 
 import android.content.Intent;
 
+import android.database.Cursor;
 import android.net.Uri;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +33,7 @@ public class newActivity extends AppCompatActivity {
 
     private DatePicker datePickerBirthday;
     private String date;
+    private  String profilePicturePath;
     private ContactsDatabaseManager databaseManager;
     private static final int PICK_IMAGE_REQUEST = 1;
     @Override
@@ -112,6 +115,7 @@ public class newActivity extends AppCompatActivity {
                 if (selectedImageUri != null) {
                     ImageView imageView4 = findViewById(R.id.imageView4);
                     imageView4.setImageURI(selectedImageUri);
+                     profilePicturePath = getRealPathFromURI(selectedImageUri);
 
                     ImageView imageView7 = findViewById(R.id.imageView7);
                     imageView7.setVisibility(View.GONE);
@@ -119,6 +123,19 @@ public class newActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, projection, null, null, null);
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String filePath = cursor.getString(columnIndex);
+        cursor.close();
+        return filePath;
+    }
+
+
 
 
     private void saveNewContact() {
@@ -131,9 +148,10 @@ public class newActivity extends AppCompatActivity {
         String phoneType = phoneTypeSpinner.getSelectedItem().toString();
         String dateLabel = dateLabelSpinner.getSelectedItem().toString();
 
+
         long result = databaseManager.insertContact(
                 firstName, lastName, phoneNumber, phoneType, email, date, dateLabel,
-                address, notes, isFavorite, groupId
+                address, notes, isFavorite, groupId, profilePicturePath
         );
 
         if (result != -1) {
