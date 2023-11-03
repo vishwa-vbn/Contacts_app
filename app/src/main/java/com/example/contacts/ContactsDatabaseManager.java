@@ -498,7 +498,6 @@ public class ContactsDatabaseManager {
 
     private static final String TABLE_GROUPS = "groups";
     private static final String COLUMN_GROUP_NAME = "group_name";
-    private static final String COLUMN_PROFILE_PICTURE_PATH = "profile_picture_path";
 
     private static final String COLUMN_IS_DELETED = "is_deleted";
 
@@ -516,7 +515,6 @@ public class ContactsDatabaseManager {
                     COLUMN_NOTES + " TEXT, " +
                     COLUMN_IS_FAVORITE + " INTEGER, " +
                     COLUMN_GROUP_ID + " INTEGER," +
-                    COLUMN_PROFILE_PICTURE_PATH + " TEXT," +
                     COLUMN_IS_DELETED + " INTEGER DEFAULT 0);" ;
 
     private static final String TABLE_CALL_LOG = "call_log";
@@ -587,7 +585,6 @@ public class ContactsDatabaseManager {
         values.put(COLUMN_NOTES, notes);
         values.put(COLUMN_IS_FAVORITE, isFavorite);
         values.put(COLUMN_GROUP_ID, groupId);
-        values.put(COLUMN_PROFILE_PICTURE_PATH, profilePicturePath); // New column
 
         try {
             long result = database.insert(TABLE_CONTACTS, null, values);
@@ -794,57 +791,10 @@ public class ContactsDatabaseManager {
 
 //commit check
 
-//    public List<Contact> getAllContacts() {
-//        List<Contact> contacts = new ArrayList<>();
-//
-//        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID};
-//
-//        // Filter out contacts with is_deleted = 1 (deleted)
-//        String selection = COLUMN_IS_DELETED + " = ?";
-//        String[] selectionArgs = {"0"};
-//
-//        Cursor cursor = database.query(
-//                TABLE_CONTACTS,
-//                columns,
-//                selection,
-//                selectionArgs,
-//                null,
-//                null,
-//                null
-//        );
-//
-//        if (cursor != null) {
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-//                    String firstName = cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME));
-//                    String lastName = cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME));
-//                    String phoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_NUMBER));
-//                    String phoneType = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_TYPE));
-//                    String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
-//                    String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
-//                    String dateLabel = cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LABEL));
-//                    String address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS));
-//                    String notes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES));
-//                    boolean isFavorite = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1;
-//                    int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
-//
-//                    Contact contact = new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
-//                    contacts.add(contact);
-//                } while (cursor.moveToNext());
-//            }
-//            cursor.close();
-//        }
-//        return contacts;
-//    }
-
-
-
-
     public List<Contact> getAllContacts() {
         List<Contact> contacts = new ArrayList<>();
 
-        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID, COLUMN_PROFILE_PICTURE_PATH};
+        String[] columns = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PHONE_NUMBER, COLUMN_PHONE_TYPE, COLUMN_EMAIL, COLUMN_DATE, COLUMN_DATE_LABEL, COLUMN_ADDRESS, COLUMN_NOTES, COLUMN_IS_FAVORITE, COLUMN_GROUP_ID};
 
         // Filter out contacts with is_deleted = 1 (deleted)
         String selection = COLUMN_IS_DELETED + " = ?";
@@ -875,39 +825,8 @@ public class ContactsDatabaseManager {
                     String notes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES));
                     boolean isFavorite = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1;
                     int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
-                    String profilePicturePath = cursor.getString(cursor.getColumnIndex(COLUMN_PROFILE_PICTURE_PATH));
-
-                    Log.d("ProfileImagePath", "Profile Picture Path: " + profilePicturePath);
 
                     Contact contact = new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
-
-                    // Set the profile picture path for the contact
-                    contact.setProfilePicturePath(profilePicturePath);
-
-                    // Retrieve the actual file path using the content provider path
-                    Uri contentUri = Uri.parse(profilePicturePath);
-                    String[] projection = {MediaStore.Images.Media.DATA};
-                    Cursor imageCursor = context.getContentResolver().query(contentUri, projection, null, null, null);
-
-                    if (imageCursor != null && imageCursor.moveToFirst()) {
-
-
-                        int columnIndex = imageCursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                        String imagePath = imageCursor.getString(columnIndex);
-                        imageCursor.close();
-
-                        // Load and set the image for the contact
-                        if (imagePath != null) {
-                            File imageFile = new File(imagePath);
-                            if (imageFile.exists()) {
-                                Bitmap profileBitmap = BitmapFactory.decodeFile(imagePath);
-                                if (profileBitmap != null) {
-                                    contact.setImage(profileBitmap);
-                                }
-                            }
-                        }
-                    }
-
                     contacts.add(contact);
                 } while (cursor.moveToNext());
             }
@@ -915,6 +834,8 @@ public class ContactsDatabaseManager {
         }
         return contacts;
     }
+
+
 
 
     public List<CallHistoryItem> getCallLogsForContact(long contactId) {
