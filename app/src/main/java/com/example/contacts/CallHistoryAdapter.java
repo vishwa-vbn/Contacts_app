@@ -93,8 +93,19 @@ import java.util.List;
 
 public class CallHistoryAdapter extends RecyclerView.Adapter<CallHistoryAdapter.ViewHolder> {
 
+
+
+
+
+
     private List<CallHistoryItem> callHistoryList;
     private Context context;
+
+
+    public void updateCallHistory(List<CallHistoryItem> callLogs) {
+        this.callHistoryList = callLogs; // Update the callLogs variable
+        notifyDataSetChanged(); // Notify the adapter that the data has changed
+    }
 
     public CallHistoryAdapter(Context context, List<CallHistoryItem> callHistoryList) {
         this.context = context;

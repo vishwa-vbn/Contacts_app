@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +19,9 @@ public class ContactsListFragment extends Fragment implements ContactsAdapter.On
     private ContactsAdapter adapter;
     private ContactsDatabaseManager databaseManager;
 
-
+    public void updateContactList(List<Contact> updatedContacts) {
+        adapter.updateContacts(updatedContacts);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +29,8 @@ public class ContactsListFragment extends Fragment implements ContactsAdapter.On
 
         RecyclerView contactsContainer = view.findViewById(R.id.contacts_recycler_view);
         contactsContainer.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
 
 
         // Initialize your contact list by querying data from the database
@@ -39,6 +45,25 @@ public class ContactsListFragment extends Fragment implements ContactsAdapter.On
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Reload contacts when the fragment is resumed
+        contacts = getContactsFromDatabase();
+        updateContactList(contacts);
+    }
+    public void addOrUpdateContact(Contact contact) {
+        // Add or update the contact in your database
+        // ...
+
+        // Get the updated list of contacts
+        List<Contact> updatedContacts = getContactsFromDatabase();
+
+        // Update the dataset in the fragment
+        updateContactList(updatedContacts);
+    }
 
 
     public void searchContacts(String query) {

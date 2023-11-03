@@ -38,6 +38,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
 
     implementation( "com.google.android.material:material:1.4.0")
     implementation("androidx.navigation:navigation-fragment:2.5.3")

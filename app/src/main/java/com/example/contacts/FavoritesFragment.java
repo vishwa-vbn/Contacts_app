@@ -279,6 +279,25 @@ public class FavoritesFragment extends Fragment implements ContactsAdapter.OnCon
 
 
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Reload favorite and frequent contacts when the fragment is resumed
+        favoriteContacts = getFavoriteContacts();
+        frequentContacts = getFrequentContacts();
+
+        // Update the adapters with the refreshed data
+        favoritesAdapter.setContacts(favoriteContacts);
+        frequentsAdapter.setContacts(frequentContacts);
+
+        // Notify the adapters that the data has changed
+        favoritesAdapter.notifyDataSetChanged();
+        frequentsAdapter.notifyDataSetChanged();
+    }
+
     public void searchContacts(String query) {
         // Filter the contacts based on the query
         List<Contact> filteredFavorites = filterContacts(favoriteContacts, query);

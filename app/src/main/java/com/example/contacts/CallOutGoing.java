@@ -94,6 +94,12 @@ package com.example.contacts;//package com.example.contacts;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -104,11 +110,15 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class CallOutGoing extends AppCompatActivity {
     String contactName;
     String contactPhone;
     long contactId;
+
+    private ImageView profileImage;
+
     private Chronometer chronometer;
     private boolean isTimerRunning = false;
     private long timeWhenStopped = 0;
@@ -120,6 +130,9 @@ public class CallOutGoing extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calling);
 
+        profileImage = findViewById(R.id.imageView9);
+
+
         // Initialize the database manager
         databaseManager = new ContactsDatabaseManager(this).open();
 
@@ -128,6 +141,10 @@ public class CallOutGoing extends AppCompatActivity {
         contactName = intent.getStringExtra("contact_name");
         contactPhone = intent.getStringExtra("contact_phone");
         contactId = intent.getLongExtra("contact_id", -1);
+
+        Drawable circularDrawable = getCircularTextDrawable(contactName.substring(0, 1));
+        profileImage.setImageDrawable(circularDrawable);
+
 
         // Initialize the Chronometer
         chronometer = findViewById(R.id.chronometer);
@@ -147,7 +164,7 @@ public class CallOutGoing extends AppCompatActivity {
                 isTimerRunning = false;
                 timeWhenStopped = chronometer.getBase() - SystemClock.elapsedRealtime();
 
-                Toast.makeText(CallOutGoing.this, "Call duration is: " + timeWhenStopped, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CallOutGoing.this, "Call duration is: " + timeWhenStopped, Toast.LENGTH_SHORT).show();
 
                 // Get the current system date and format it
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -174,6 +191,31 @@ public class CallOutGoing extends AppCompatActivity {
         });
     }
 
+
+
+    private Drawable getCircularTextDrawable(String text) {
+        Bitmap bitmap = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setColor(getRandomColor());
+        canvas.drawCircle(60, 60, 60, paint);
+
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(60);
+        paint.setAntiAlias(true);
+        paint.setTextAlign(Paint.Align.CENTER);
+
+        float x = canvas.getWidth() / 2f;
+        float y = (canvas.getHeight() / 2f) - ((paint.descent() + paint.ascent()) / 2);
+        canvas.drawText(text, x, y, paint);
+
+        return new BitmapDrawable(getResources(), bitmap);
+    }
+
+    private int getRandomColor() {
+        Random random = new Random();
+        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
     @Override
     protected void onResume() {
         super.onResume();

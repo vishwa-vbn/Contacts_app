@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +22,7 @@ public class RestorePage extends AppCompatActivity {
     Button saveButton, back_btn;
 
 
-    Button cancelButton;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +79,41 @@ public class RestorePage extends AppCompatActivity {
                 finish();
             }
         });
-        cancelButton = findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RestorePage.this,MainActivity.class);
-                startActivity(i);
+                List<Contact> selectedContacts = adapter.getSelectedContacts();
+                List<Long> selectedContactIds = new ArrayList<>();
+
+                for (Contact contact : selectedContacts) {
+                    selectedContactIds.add(contact.getId());
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(RestorePage.this);
+                builder.setMessage("Note!! The contacts will get deleted permanently.do you want to delete? ");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for (Long contactId : selectedContactIds) {
+                            int currentIsDeleted = databaseManager.getCurrentIsDeleted(contactId);
+                            databaseManager.updateIsDeleted(contactId, currentIsDeleted);
+                        }
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing, just close the dialog
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
         databaseManager.close();
     }
 }

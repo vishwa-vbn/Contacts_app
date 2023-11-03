@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, MergeContactsActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.nav_trash) {
-            // Handle other options if needed
-
-            Intent intent = new Intent(MainActivity.this, TrashPage.class);
-            startActivity(intent);
-        }
+//        else if (id == R.id.nav_trash) {
+//            // Handle other options if needed
+//
+//            Intent intent = new Intent(MainActivity.this, TrashPage.class);
+//            startActivity(intent);
+//        }
         else if (id == R.id.nav_export_import) {
             // Handle other options if needed
 

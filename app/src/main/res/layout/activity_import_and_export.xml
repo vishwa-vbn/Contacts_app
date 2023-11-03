@@ -9,26 +9,38 @@
 
     tools:ignore="MissingConstraints">
 
-<LinearLayout
-android:id="@+id/top_layout"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:gravity="start"
-android:layout_alignParentTop="true">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="Import and Export"
-    android:textSize="25sp"
-    android:gravity="center"
-    android:layout_marginStart="16dp"
-android:textColor="@color/black"
-android:layout_weight="1"
 
-/>
-</LinearLayout>
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:drawableStart="@drawable/ic_back"
+        android:paddingStart="5dp"
+        android:paddingEnd="8dp"
+        android:text="Back"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp" />
+
+
+
+    <TextView
+        android:id="@+id/import_export_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Import And Export"
+        android:textSize="18dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="30dp"
+        />
+
 
     <LinearLayout
         android:id="@+id/import_layout"
@@ -36,8 +48,7 @@ android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_below="@id/top_layout"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/box"
         tools:ignore="MissingConstraints">
 
@@ -104,4 +115,6 @@ android:layout_marginTop="12dp"
             android:textSize="18dp" />
     </LinearLayout>
 
-    </RelativeLayout>
+
+
+</RelativeLayout>

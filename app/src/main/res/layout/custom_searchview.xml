@@ -1,11 +1,16 @@
-<androidx.appcompat.widget.SearchView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.SearchView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="48dp"
     android:background="@drawable/searchview_background"
-    android:padding="8dp"
-    android:theme="@style/CustomSearchViewStyle"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:elevation="4dp"
+    android:queryHint="@string/search_hint"
     app:iconifiedByDefault="false"
-    app:searchIcon="@drawable/ic_search">
+    android:hint="@string/search_hint"
+    app:searchIcon="@drawable/ic_search"
+    android:theme="@style/CustomSearchViewStyle">
 </androidx.appcompat.widget.SearchView>

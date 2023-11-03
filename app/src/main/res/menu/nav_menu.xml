@@ -7,14 +7,14 @@
         android:id="@+id/nav_merge"
         android:icon="@drawable/ic_merge_fix"
     android:title="Merge and Fix" />
-    <item
-        android:id="@+id/nav_trash"
-        android:icon="@drawable/baseline_delete_24"
-    android:title="Trash" />
+<!--    <item-->
+<!--        android:id="@+id/nav_trash"-->
+<!--        android:icon="@drawable/baseline_delete_24"-->
+<!--    android:title="Trash" />-->
     <item
         android:id="@+id/nav_restore"
         android:icon="@drawable/ic_restore"
-    android:title="Restore" />
+    android:title="Contact Restore" />
     <item
         android:id="@+id/nav_export_import"
         android:icon="@drawable/ic_export_import"

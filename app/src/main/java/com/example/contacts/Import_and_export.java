@@ -18,13 +18,25 @@ import java.util.List;
 
 public class Import_and_export extends AppCompatActivity {
 
+
+    Button back_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_and_export); // Make sure you have a corresponding layout file.
 
+        getSupportActionBar().hide();
+back_btn= findViewById(R.id.back_button);
 
 
+
+back_btn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        finish();
+    }
+});
 
     }
 //    public void exportContacts(String filePath, List<Contact> contacts) {
