@@ -463,8 +463,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -835,7 +841,6 @@ public class ContactsDatabaseManager {
 
 
 
-
     public List<Contact> getAllContacts() {
         List<Contact> contacts = new ArrayList<>();
 
@@ -872,10 +877,36 @@ public class ContactsDatabaseManager {
                     int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
                     String profilePicturePath = cursor.getString(cursor.getColumnIndex(COLUMN_PROFILE_PICTURE_PATH));
 
+                    Log.d("ProfileImagePath", "Profile Picture Path: " + profilePicturePath);
+
                     Contact contact = new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
 
                     // Set the profile picture path for the contact
                     contact.setProfilePicturePath(profilePicturePath);
+
+                    // Retrieve the actual file path using the content provider path
+                    Uri contentUri = Uri.parse(profilePicturePath);
+                    String[] projection = {MediaStore.Images.Media.DATA};
+                    Cursor imageCursor = context.getContentResolver().query(contentUri, projection, null, null, null);
+
+                    if (imageCursor != null && imageCursor.moveToFirst()) {
+
+
+                        int columnIndex = imageCursor.getColumnIndex(MediaStore.Images.Media.DATA);
+                        String imagePath = imageCursor.getString(columnIndex);
+                        imageCursor.close();
+
+                        // Load and set the image for the contact
+                        if (imagePath != null) {
+                            File imageFile = new File(imagePath);
+                            if (imageFile.exists()) {
+                                Bitmap profileBitmap = BitmapFactory.decodeFile(imagePath);
+                                if (profileBitmap != null) {
+                                    contact.setImage(profileBitmap);
+                                }
+                            }
+                        }
+                    }
 
                     contacts.add(contact);
                 } while (cursor.moveToNext());
