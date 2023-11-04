@@ -44,7 +44,7 @@ public class  IndividualCallHistory extends AppCompatActivity {
     private Button back_btn;
 
     private ImageView callIcon;
-    private ImageButton deleteButton;
+    private ImageButton deleteButton,editButton;
     int currentIsDeleted;
     private ContactsDatabaseManager contactsDatabaseManager;
     private ContactsDatabaseManager databaseManager;
@@ -56,6 +56,9 @@ public class  IndividualCallHistory extends AppCompatActivity {
         getSupportActionBar().hide();
 
         back_btn= findViewById(R.id.back_button);
+        editButton=findViewById(R.id.editButton);
+
+
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +120,21 @@ public class  IndividualCallHistory extends AppCompatActivity {
             }
         }
 
+
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(IndividualCallHistory.this, newActivity.class);
+
+                intent.putExtra("contact_id", contactId);
+
+
+                startActivity(intent);
+
+            }
+        });
         callIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

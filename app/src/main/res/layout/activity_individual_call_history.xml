@@ -47,6 +47,17 @@
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/baseline_delete_24" />
 
+    <ImageButton
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/baseline_edit_24" />
+
     <TextView
         android:id="@+id/contactNameTextView"
         android:layout_width="wrap_content"

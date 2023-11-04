@@ -126,6 +126,19 @@ public class Contact {
     }
 
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+
 
     public void setSelected(boolean selected) {
         isSelected = selected;

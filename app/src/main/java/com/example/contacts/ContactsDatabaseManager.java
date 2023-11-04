@@ -895,6 +895,69 @@ public class ContactsDatabaseManager {
     }
 
 
+    public int updateContact(long contactId, String firstName, String lastName, String phoneNumber, String phoneType, String email, String date, String dateLabel, String address, String notes, boolean isFavorite, int groupId) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_PHONE_NUMBER, phoneNumber);
+        values.put(COLUMN_PHONE_TYPE, phoneType);
+        values.put(COLUMN_EMAIL, email);
+        values.put(COLUMN_DATE, date);
+        values.put(COLUMN_DATE_LABEL, dateLabel);
+        values.put(COLUMN_ADDRESS, address);
+        values.put(COLUMN_NOTES, notes);
+        values.put(COLUMN_IS_FAVORITE, isFavorite ? 1 : 0);
+        values.put(COLUMN_GROUP_ID, groupId);
+
+        String whereClause = COLUMN_ID + " = ?";
+        String[] whereArgs = {String.valueOf(contactId)};
+
+        try {
+            return database.update(TABLE_CONTACTS, values, whereClause, whereArgs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0; // Handle the error
+        }
+    }
+
+
+    public Contact getContactById(long contactId) {
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(contactId)};
+
+        Cursor cursor = database.query(
+                TABLE_CONTACTS,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String firstName = cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME));
+            String lastName = cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME));
+            String phoneNumber = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_NUMBER));
+            String phoneType = cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_TYPE));
+            String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
+            String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+            String dateLabel = cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LABEL));
+            String address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS));
+            String notes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES));
+            boolean isFavorite = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1;
+            int groupId = cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID));
+
+            cursor.close();
+
+            return new Contact(contactId, firstName, lastName, phoneNumber, phoneType, email, date, dateLabel, address, notes, isFavorite, groupId);
+        } else {
+            // Handle the case where the contact with the given ID was not found
+            return null;
+        }
+    }
+
+
     public void clearGroupMembers(long groupId) {
         String whereClause = COLUMN_GROUP_ID + " = ?";
         String[] whereArgs = {String.valueOf(groupId)};
