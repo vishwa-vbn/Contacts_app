@@ -278,24 +278,6 @@ public class Main_Group extends AppCompatActivity {
         databaseManager.close();
     }
 
-//    private void showDeleteGroupConfirmationDialog(Group group) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Delete Group");
-//        builder.setMessage("Are you sure you want to delete this group?");
-//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                // Call the deleteGroup method with the group's ID to delete it
-//                deleteGroup(group.getId());
-//                // Update the RecyclerView to reflect the changes
-//                updateRecyclerView();
-//            }
-//        });
-//        builder.setNegativeButton("Cancel", null);
-//        builder.show();
-//    }
-
-
 
     private void showDeleteGroupConfirmationDialog(Group group) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -348,12 +330,26 @@ public class Main_Group extends AppCompatActivity {
         databaseManager.close();
     }
 
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Update the RecyclerView with the latest group details
+        updateRecyclerView();
+    }
+
     private void updateRecyclerView() {
         // Fetch the updated list of groups from the database and update the RecyclerView
         List<Group> updatedGroups = getUpdatedGroups();
         adapter.updateData(updatedGroups);
         adapter.notifyDataSetChanged();
     }
+
+
+
+
+
 
     private List<Group> getUpdatedGroups() {
         // Fetch the updated list of groups from the database

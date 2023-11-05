@@ -704,9 +704,10 @@ public class ContactsDatabaseManager {
     }
 
 
+
     public List<Contact> getFavoriteContacts() {
         List<Contact> favoriteContacts = new ArrayList<>();
-        String selection = COLUMN_IS_FAVORITE + " = 1";
+        String selection = COLUMN_IS_FAVORITE + " = 1 AND " + COLUMN_IS_DELETED + " = 0"; // Add the WHERE clause
 
         Cursor cursor = database.query(
                 TABLE_CONTACTS,
@@ -744,6 +745,48 @@ public class ContactsDatabaseManager {
 
         return favoriteContacts;
     }
+
+
+//    public List<Contact> getFavoriteContacts() {
+//        List<Contact> favoriteContacts = new ArrayList<>();
+//        String selection = COLUMN_IS_FAVORITE + " = 1";
+//
+//        Cursor cursor = database.query(
+//                TABLE_CONTACTS,
+//                null,
+//                selection,
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//
+//        if (cursor != null) {
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+//                    Contact contact = new Contact(
+//                            id,
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_NUMBER)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_PHONE_TYPE)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_DATE)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LABEL)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
+//                            cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)),
+//                            cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FAVORITE)) == 1,
+//                            cursor.getInt(cursor.getColumnIndex(COLUMN_GROUP_ID))
+//                    );
+//                    favoriteContacts.add(contact);
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//        }
+//
+//        return favoriteContacts;
+//    }
 
 
     public void setContactFavorite(long contactId, boolean isFavorite) {
@@ -836,6 +879,8 @@ public class ContactsDatabaseManager {
         }
         return contacts;
     }
+
+
 
 
 
@@ -974,6 +1019,92 @@ public class ContactsDatabaseManager {
 
 
 
+//    public List<Contact> getFrequentContacts() {
+//        List<Contact> frequentFavoriteContacts = new ArrayList<>();
+//        String[] projection = {TABLE_CONTACTS + "." + COLUMN_ID, "COUNT(*) AS call_count"};
+//        String groupBy = TABLE_CONTACTS + "." + COLUMN_ID;
+//        String orderBy = "call_count DESC";
+//        String limit = "5";
+//
+//        // Join the TABLE_CALL_LOG with TABLE_CONTACTS on the contact ID
+//        String tables = TABLE_CALL_LOG + " INNER JOIN " + TABLE_CONTACTS + " ON " +
+//                TABLE_CALL_LOG + "." + COLUMN_CONTACT_ID + " = " +
+//                TABLE_CONTACTS + "." + COLUMN_ID;
+//
+//        String selection = TABLE_CONTACTS + "." + COLUMN_IS_FAVORITE + " = 1"; // Add the WHERE clause
+//
+//        Cursor cursor = database.query(
+//                tables,
+//                projection,
+//                selection, // Use the WHERE clause
+//                null,
+//                groupBy,
+//                null,
+//                orderBy,
+//                limit
+//        );
+//
+//        if (cursor != null) {
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+//                    Contact contact = getContactDetails(contactId);
+//                    if (contact != null) {
+//                        frequentFavoriteContacts.add(contact);
+//                    }
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//        }
+//
+//        return frequentFavoriteContacts;
+//    }
+
+
+
+//    public List<Contact> getFrequentContacts() {
+//        List<Contact> frequentFavoriteContacts = new ArrayList<>();
+//        String[] projection = {TABLE_CONTACTS + "." + COLUMN_ID, "COUNT(*) AS call_count"};
+//        String groupBy = TABLE_CONTACTS + "." + COLUMN_ID;
+//        String orderBy = "call_count DESC";
+//        String limit = "5";
+//
+//        // Join the TABLE_CALL_LOG with TABLE_CONTACTS on the contact ID
+//        String tables = TABLE_CALL_LOG + " INNER JOIN " + TABLE_CONTACTS + " ON " +
+//                TABLE_CALL_LOG + "." + COLUMN_CONTACT_ID + " = " +
+//                TABLE_CONTACTS + "." + COLUMN_ID;
+//
+//        String selection = TABLE_CONTACTS + "." + COLUMN_IS_FAVORITE + " = 1 AND " +
+//                TABLE_CONTACTS + "." + COLUMN_IS_DELETED + " = 0"; // Add the WHERE clause
+//
+//        Cursor cursor = database.query(
+//                tables,
+//                projection,
+//                selection, // Use the WHERE clause
+//                null,
+//                groupBy,
+//                null,
+//                orderBy,
+//                limit
+//        );
+//
+//        if (cursor != null) {
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    long contactId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+//                    Contact contact = getContactDetails(contactId);
+//                    if (contact != null) {
+//                        frequentFavoriteContacts.add(contact);
+//                    }
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//        }
+//
+//        return frequentFavoriteContacts;
+//    }
+
+
     public List<Contact> getFrequentContacts() {
         List<Contact> frequentFavoriteContacts = new ArrayList<>();
         String[] projection = {TABLE_CONTACTS + "." + COLUMN_ID, "COUNT(*) AS call_count"};
@@ -986,7 +1117,9 @@ public class ContactsDatabaseManager {
                 TABLE_CALL_LOG + "." + COLUMN_CONTACT_ID + " = " +
                 TABLE_CONTACTS + "." + COLUMN_ID;
 
-        String selection = TABLE_CONTACTS + "." + COLUMN_IS_FAVORITE + " = 1"; // Add the WHERE clause
+        // Add the WHERE clause to filter out deleted contacts
+        String selection = TABLE_CONTACTS + "." + COLUMN_IS_FAVORITE + " = 1 AND " +
+                TABLE_CONTACTS + "." + COLUMN_IS_DELETED + " = 0";
 
         Cursor cursor = database.query(
                 tables,
@@ -1014,6 +1147,8 @@ public class ContactsDatabaseManager {
 
         return frequentFavoriteContacts;
     }
+
+
 
     public Contact getContactDetails(long contactId) {
         Cursor cursor = database.query(

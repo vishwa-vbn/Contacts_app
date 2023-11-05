@@ -63,6 +63,9 @@ public class  IndividualCallHistory extends AppCompatActivity {
 
 
 
+
+
+
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,16 +206,6 @@ public class  IndividualCallHistory extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Get the call logs for the contact (replace with the actual contact ID)
-        List<CallHistoryItem> callLogs = contactsDatabaseManager.getCallLogsForContact(contactId);
-
-        // Update the adapter with the refreshed call history
-        adapter.updateCallHistory(callLogs);
-    }
 
 
     private Drawable getCircularTextDrawable(String text) {
@@ -237,6 +230,15 @@ public class  IndividualCallHistory extends AppCompatActivity {
     private int getRandomColor() {
         Random random = new Random();
         return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Get the call logs for the contact
+        List<CallHistoryItem> callLogs = contactsDatabaseManager.getCallLogsForContact(contactId);
+        adapter.updateCallHistory(callLogs);
     }
     @Override
     protected void onDestroy() {
