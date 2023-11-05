@@ -266,7 +266,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.view.LayoutInflater;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -277,7 +278,7 @@ public class groupcreation extends AppCompatActivity {
 
     private EditText groupNameEditText;
     private RecyclerView recyclerView;
-    private Button saveButton, backButton;
+    private Button saveButton, backButton,cancelButton;
     private MyAdapter adapter;
     private ContactsDatabaseManager databaseManager;
     private List<Contact> contacts;
@@ -293,6 +294,7 @@ public class groupcreation extends AppCompatActivity {
         recyclerView = findViewById(R.id.contactsRecyclerView);
         saveButton = findViewById(R.id.saveButton);
         backButton = findViewById(R.id.back_button);
+        cancelButton = findViewById(R.id.cancelButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -334,21 +336,64 @@ public class groupcreation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String groupName = groupNameEditText.getText().toString().trim();
+                List<Contact> selectedContacts = adapter.getSelectedContacts();
+
                 if (groupName.isEmpty()) {
-                    Toast.makeText(groupcreation.this, "Group name cannot be empty", Toast.LENGTH_SHORT).show();
-                } else {
+                    showCustomToast("Group Name required");
+                }
+                else if (selectedContacts.size() < 2) {
+                    showCustomToast("Select atleast 2 contacts");
+                }
+                else {
                     if (editMode) {
                         // Update the existing group
                         updateGroupInDatabase(groupId, groupName, adapter.getSelectedContacts());
                     } else {
-                        // Create a new group
                         long newGroupId = saveGroupToDatabase(groupName);
-                        associateContactsToGroup(newGroupId, adapter.getSelectedContacts());
+//                        List<Contact> selectedContacts = adapter.getSelectedContacts();
+                        associateContactsToGroup(newGroupId, selectedContacts);//changed this line paramenter
+                        // Create a new group
+                        if (groupName.isEmpty()) {
+                            Toast.makeText(groupcreation.this, "Group name cannot be empty", Toast.LENGTH_SHORT).show();
+                        } else if (selectedContacts.size() < 2) {
+                            Toast.makeText(groupcreation.this, "Please select at least 2 contacts", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Create a new group
+//                            long newGroupId = saveGroupToDatabase(groupName);
+                            associateContactsToGroup(newGroupId, selectedContacts);
+
+                            showCustomToast("Group Created Successfully");
+
+                            // Finish the activity or navigate to the main contacts list
+                            finish();
+                        }
+
+
+                        showCustomToast("Group Created Successfully");
                     }
                     finish();
                 }
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void showCustomToast(String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View customToastView = inflater.inflate(R.layout.custom_toast, null);
+        TextView messageTextView = customToastView.findViewById(R.id.messageTextView);
+        messageTextView.setText(message);
+
+        Toast customToast = new Toast(getApplicationContext());
+        customToast.setView(customToastView);
+        customToast.setDuration(Toast.LENGTH_SHORT);
+        customToast.show();
     }
 
     @Override

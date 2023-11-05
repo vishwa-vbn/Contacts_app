@@ -71,7 +71,7 @@ public class MergeContactsAdapter extends RecyclerView.Adapter<MergeContactsAdap
                     ((MainActivity) context).finish();
                 }
                 else{
-                    Toast.makeText(context, "Both contacts are different with same phone numbers", Toast.LENGTH_SHORT).show();
+                    showCustomToast("Both contacts are different with same phone numbers");
                 }
             }
         });
@@ -83,6 +83,20 @@ public class MergeContactsAdapter extends RecyclerView.Adapter<MergeContactsAdap
             }
         });
     }
+
+    //new customtoast
+    private void showCustomToast(String message) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customToastView = inflater.inflate(R.layout.custom_toast, null);
+        TextView messageTextView = customToastView.findViewById(R.id.messageTextView);
+        messageTextView.setText(message);
+
+        Toast customToast = new Toast(context);
+        customToast.setView(customToastView);
+        customToast.setDuration(Toast.LENGTH_LONG);
+        customToast.show();
+    }
+
 
 
     @Override
@@ -119,7 +133,7 @@ public class MergeContactsAdapter extends RecyclerView.Adapter<MergeContactsAdap
         int rowsUpdated = databaseManager.updateContactPhoneNumbers(contactId, newPhoneNumber);
         if (rowsUpdated > 0) {
             // Update was successful, show a success message
-            Toast.makeText(context, "Phone numbers merged successfully.", Toast.LENGTH_SHORT).show();
+            showCustomToast("Phone numbers merged successfully");
         } else {
             // Contact with the given ID was not found, show an error message
             Toast.makeText(context, "Contact not found.", Toast.LENGTH_SHORT).show();

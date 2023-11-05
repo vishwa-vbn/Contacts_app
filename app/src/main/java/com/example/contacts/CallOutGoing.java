@@ -173,13 +173,13 @@ public class CallOutGoing extends AppCompatActivity {
                 // Insert the call log information into the database
                 long callLogId = databaseManager.insertCallLog(contactId, contactPhone, contactName, -timeWhenStopped, callDate);
 
-                if (callLogId != -1) {
-                    // Call log inserted successfully
-                    Toast.makeText(CallOutGoing.this, "Call log saved successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Handle insertion error
-                    Toast.makeText(CallOutGoing.this, "Error saving the call log", Toast.LENGTH_SHORT).show();
-                }
+//                if (callLogId != -1) {
+//                    // Call log inserted successfully
+//                    Toast.makeText(CallOutGoing.this, "Call log saved successfully", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    // Handle insertion error
+//                    Toast.makeText(CallOutGoing.this, "Error saving the call log", Toast.LENGTH_SHORT).show();
+//                }
 
                 new android.os.Handler().postDelayed(new Runnable() {
                     @Override
