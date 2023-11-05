@@ -468,6 +468,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
@@ -1075,8 +1077,12 @@ public class ContactsDatabaseManager {
         try {
             int rowsDeleted = db.delete(TABLE_CONTACTS, whereClause, whereArgs);
             if (rowsDeleted > 0) {
-                // Contact deleted successfully
-                Toast.makeText(context, "Contact deleted successfully.", Toast.LENGTH_SHORT).show();
+                Toast customToast = new Toast(context);
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View customToastView = inflater.inflate(R.layout.delete_custom_toast, null);
+                customToast.setView(customToastView);
+                customToast.setDuration(Toast.LENGTH_SHORT);
+                customToast.show();
             } else {
                 // Contact with the given ID was not found
                 Toast.makeText(context, "Contact not found.", Toast.LENGTH_SHORT).show();

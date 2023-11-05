@@ -18,11 +18,14 @@ package com.example.contacts;
         import android.content.Intent;
         import android.os.Bundle;
         import android.util.Log;
+        import android.view.LayoutInflater;
         import android.view.View;
         import android.widget.Button;
         import android.widget.ImageButton;
         import android.widget.ImageView;
         import android.widget.TextView;
+        import android.widget.Toast;
+
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
@@ -173,6 +176,9 @@ public class  IndividualCallHistory extends AppCompatActivity {
                         long contactIdToDelete = contactId;
                         databaseManager.updateIsDeleted(contactIdToDelete,currentIsDeleted);
                         databaseManager.close();
+
+                        deleteCustomToast();
+
                         //Toast.makeText(IndividualCallHistory.this,"the contact id is = "+contactId,Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -185,6 +191,15 @@ public class  IndividualCallHistory extends AppCompatActivity {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void deleteCustomToast() {
+        Toast customToast = new Toast(getApplicationContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View customToastView = inflater.inflate(R.layout.delete_custom_toast, null);
+        customToast.setView(customToastView);
+        customToast.setDuration(Toast.LENGTH_SHORT);
+        customToast.show();
     }
 
 

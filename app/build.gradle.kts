@@ -32,18 +32,16 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("androidx.appcompat:appcompat:1.3.1")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
 
-    implementation( "com.google.android.material:material:1.4.0")
+    // Remove the redundant dependencies
     implementation("androidx.navigation:navigation-fragment:2.5.3")
     implementation("androidx.navigation:navigation-ui:2.5.3")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

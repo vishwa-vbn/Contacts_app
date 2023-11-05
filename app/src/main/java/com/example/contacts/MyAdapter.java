@@ -84,7 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ContactViewHolder>
         holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Update the isSelected property of the contact
             contact.setSelected(isChecked);
-            Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
         });
 
         // Handle contact item click (if needed)
